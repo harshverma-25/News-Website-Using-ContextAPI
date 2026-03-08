@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react'
-import Card from '../components/Card'
-import axios from 'axios'
+import React from "react";
+import Card from "../components/Card";
+import { useNewsContext } from "../context/NewsContext";
 
-const News = () => {
-    
-    const fetchNews = async () => {
-        const response = await axios.get("https://newsapi.org/v2/everything?q=Apple&from=2026-03-04&sortBy=popularity&apiKey=3fc9ac2fa12e495d91bdd9bd1cbfa801")
-        console.log(response.data);
-    }
-
-    useEffect(() => {
-        fetchNews()
-    }, [])
-  return (
-    <div className='px-50 grid grid-cols-3 gap-5'>
-      <Card />
- 
+  const News = () => {
+      const { news } = useNewsContext();
+     return (
+    <div className="px-50 grid grid-cols-3 gap-5">
+      {news.map((article, index) => (
+        <Card key={index} article={article} />
+      ))}
     </div>
-  )
-}
+  );
+  }
 
-export default News
+export default News;
